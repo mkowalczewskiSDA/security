@@ -18,7 +18,7 @@
             <th><span th:text="#{label.order.user}" /></th>
         </thead>
         <tbody>
-        <tr th:each="order:${orders}">
+        <tr th:each="order:${orderPage.content}">
             <td th:text="${order.orderId}" />
             <td th:text="${order.orderTitle}" />
             <td th:text="${order.orderPrice}"/>
@@ -26,6 +26,11 @@
         </tr>
         </tbody>
     </table>
+    <div th:if="${orderPage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/order/list(page=${pageNumber})}"
+           th:text="${pageNumber}"></a>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>
