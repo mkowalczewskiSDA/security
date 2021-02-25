@@ -1,0 +1,6 @@
+Utwórz nowy widok który wyświetli wszstkich użytkowników z wykorzystaniem paginacji
+,oczywiście nie wyświetlaj hasła :).
+
+Dla chętnych - Wyświetl także kolumnę z rolami wszystkie role po przecinku,
+spraw żeby na podstawie adresu URL można było definiować ile wierszy z tabeli będzie się wyświetlało
+przy korzystaniu z paginacji
