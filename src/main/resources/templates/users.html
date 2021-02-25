@@ -8,35 +8,36 @@
 <body>
 
 <div th:replace="fragments/header :: header"/>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Login</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Roles</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="portalUser:${portalUserPage.content}">
-        <td th:text="${portalUser.portalUserID}" />
-        <td th:text="${portalUser.portalUserLogin}" />
-        <td th:text="${portalUser.portalUserFirstName}"/>
-        <td th:text="${portalUser.portalUserLastName}"/>
-        <td th:text="${portalUser.portalUserEmail}"/>
-        <td>
-            <span th:each="role, iterStat : ${portalUser.roles}" th:text="!${iterStat.last} ? ${role.roleName} + ',': ${role.roleName}">
-        </span></td>
-    </tr>
-    </tbody>
-</table>
-<div th:if="${portalUserPage.totalPages > 0}" class="pagination"
-     th:each="pageNumber : ${pageNumbers}">
-    <a th:href="@{/users(page=${pageNumber},size=${size})}"
-       th:text="${pageNumber}"></a>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th><span th:text="#{label.user.id}" /></th>
+            <th><span th:text="#{label.user.login}"/></th>
+            <th><span th:text="#{label.user.firstName}"/></th>
+            <th><span th:text="#{label.user.lastName}"/></th>
+            <th><span th:text="#{label.user.email}"/></th>
+            <th><span th:text="#{label.user.roles}"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="portalUser:${portalUserPage.content}">
+            <td th:text="${portalUser.portalUserID}" />
+            <td th:text="${portalUser.portalUserLogin}" />
+            <td th:text="${portalUser.portalUserFirstName}"/>
+            <td th:text="${portalUser.portalUserLastName}"/>
+            <td th:text="${portalUser.portalUserEmail}"/>
+            <td>
+                <span th:each="role, iterStat : ${portalUser.roles}" th:text="!${iterStat.last} ? ${role.roleName} + ',': ${role.roleName}">
+            </span></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${portalUserPage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/users(page=${pageNumber},size=${size})}"
+           th:text="${pageNumber}"></a>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>
