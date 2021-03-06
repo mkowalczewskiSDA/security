@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Spring Security Example </title>
+    <script th:src="@{/js/modal.js}"></script>
+    <div th:replace="fragments/header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+
+<div class="panel-group col-xs-offset-3 col-lg-6">
+    <div class="panel panel-default">
+            <div class="panel-heading"><h4>User Login</h4></div>
+            <div class="panel-body"><td th:text="${portalUser.portalUserLogin}"/></div>
+    </div>
+    <div class="panel panel-default">
+            <div class="panel-heading"><h4>User Name</h4></div>
+            <div class="panel-body">
+                <span style="vertical-align:-33%"><td th:text="${portalUser.portalUserFirstName +' '+ portalUser.portalUserLastName}"/></span>
+                <button type="button" class="btn pull-right btn-primary"><span class="glyphicon glyphicon-pencil"></span>  Edit</button>
+            </div>
+    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>User Email</h4></div>
+                    <div class="panel-body">
+                        <span style="vertical-align:-33%"><td th:text="${portalUser.portalUserEmail}"/></span>
+                        <button id="btn-editEmail" type="button" data-toggle="modal" data-target="#emailModal" class="btn pull-right middle btn-primary"><span class="glyphicon glyphicon-pencil"></span>  Edit</button>
+                    </div>
+                 <div class ="clearfix"></div>
+            </div>
+</div>
+
+<div th:fragment="emailModal" class="modal fade" id="emailModal" role="dialog">
+    <div class="modal-dialog">
+        <form method="POST" modelAttribute="portalUser" th:action = "@{/details}" th:object="${portalUser}" class="form-control">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Email</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="text" placeholder="Email" th:field="*{portalUserEmail}"/>
+                </div>
+                <div class="modal-footer">
+                    <button id="submitEditEmail" class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>
