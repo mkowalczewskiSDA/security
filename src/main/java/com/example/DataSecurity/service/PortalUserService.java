@@ -13,5 +13,9 @@ public interface PortalUserService {
     List<PortalUser> findByLoginStartsWith(String login);
     Page<PortalUser> findAllPaginated(Pageable pageable);
 
+    public void update(PortalUser portalUser);
+
+    public void save(PortalUser portalUser);
+
 
 }

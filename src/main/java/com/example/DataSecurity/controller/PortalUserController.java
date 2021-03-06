@@ -11,13 +11,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -91,5 +94,44 @@ public class PortalUserController {
     //@PreAuthorize("hasAuthority('ADMIN')")
     public String user() {
         return "user";
+    }
+
+    @GetMapping("/register")
+    public String registerPage(Model model){
+        model.addAttribute("portalUser", new PortalUser());
+        return "/register";
+    }
+
+    @PostMapping("/register")
+    public String register(@Valid PortalUser portalUser, BindingResult result){
+        if (result.hasErrors()){
+            return "register";
+        }
+        else {
+            portalUserService.save(portalUser);
+            return "redirect:/login";
+        }
+    }
+
+    @RequestMapping(value = "/details", method = RequestMethod.GET)
+    public String details(Model model){
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        PortalUser portalUser = portalUserService.findByLogin(user.getUsername());
+        model.addAttribute("portalUser", portalUser);
+        return "details";
+    }
+
+    @RequestMapping(value = "/details", method = RequestMethod.POST)
+    public String update(@ModelAttribute(value = "portalUser") PortalUser portalUser, BindingResult bindingResult, Model model) {
+
+        PortalUser portalUserTemp = portalUserService.findById(portalUser.getPortalUserID());
+        portalUserTemp.setPortalUserEmail(portalUser.getPortalUserEmail());
+
+        portalUserService.update(portalUserTemp);
+
+        model.addAttribute("portalUser", portalUserTemp);
+
+        return "details";
     }
 }

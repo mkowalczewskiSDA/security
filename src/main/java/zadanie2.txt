@@ -1,0 +1,8 @@
+Stwórz strone Rejestracji nowego użytkownika - spraw żeby wprowadzane dane się walidowały
+- wszystkie pola na NotNull, email ma być w formacie email - hasło minimum 7 znaków.
+Upewnij się że do bazy danych przesyłasz zahashowane hasło. Nowy użytkownik ma mieć przypisaną na
+starcie rolę USER
+
+
+Dla BARDZO CHĘTNYCH - napisz własną walidację sprawdzającą czy email i login nie są już zajęte
+jak to zrobić - https://www.baeldung.com/spring-mvc-custom-validator
