@@ -1,8 +1,11 @@
 package com.example.DataSecurity.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Entity
@@ -26,6 +29,7 @@ class PortalUser {
     @Column(name="PU_LASTNAME")
     private String portalUserLastName;
     @Column(name="PU_EMAIL", unique = true)
+    @Email
     private String portalUserEmail;
     @Column(name="PU_PASSWORD")
     private String portalUserPassword;

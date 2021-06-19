@@ -11,14 +11,12 @@
 <div class="container">
     <table class="table">
         <thead>
-        <tr>
             <th><span th:text="#{label.user.id}" /></th>
             <th><span th:text="#{label.user.login}"/></th>
             <th><span th:text="#{label.user.firstName}"/></th>
             <th><span th:text="#{label.user.lastName}"/></th>
             <th><span th:text="#{label.user.email}"/></th>
             <th><span th:text="#{label.user.roles}"/></th>
-        </tr>
         </thead>
         <tbody>
         <tr th:each="portalUser:${portalUserPage.content}">

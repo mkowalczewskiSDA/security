@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,6 +105,9 @@ public class PortalUserController {
 
     @PostMapping("/register")
     public String register(@Valid PortalUser portalUser, BindingResult result){
+        if (portalUser.getPortalUserPassword().length() < 8) {
+            result.rejectValue("portalUserPassword", "test.test");
+        }
         if (result.hasErrors()){
             return "register";
         }
@@ -123,7 +127,7 @@ public class PortalUserController {
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.POST)
-    public String update(@ModelAttribute(value = "portalUser") PortalUser portalUser, BindingResult bindingResult, Model model) {
+    public String update(@ModelAttribute(value = "portalUser") PortalUser portalUser, Model model) {
 
         PortalUser portalUserTemp = portalUserService.findById(portalUser.getPortalUserID());
         portalUserTemp.setPortalUserEmail(portalUser.getPortalUserEmail());
