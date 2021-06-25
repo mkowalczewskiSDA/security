@@ -1,5 +1,6 @@
 package com.example.DataSecurity.controller;
 
+import com.example.DataSecurity.aspect.ExampleAspectAnnotation;
 import com.example.DataSecurity.model.PortalUser;
 import com.example.DataSecurity.service.OrderService;
 import com.example.DataSecurity.service.PortalUserService;
@@ -104,6 +105,7 @@ public class PortalUserController {
     }
 
     @PostMapping("/register")
+    @ExampleAspectAnnotation
     public String register(@Valid PortalUser portalUser, BindingResult result){
         if (portalUser.getPortalUserPassword().length() < 8) {
             result.rejectValue("portalUserPassword", "test.test");
